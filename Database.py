@@ -9,6 +9,8 @@ class DataBase:
 
     def PushAtTheEnd(self, string):
         '''эта функция добавляет человека в конец списка'''
+        if string == "wrongvalue":
+            return 0
         self.DB["Names"].append(string[0])
         self.DB["SNames"].append(string[1])
         self.DB["FNames"].append(string[2])
@@ -16,6 +18,13 @@ class DataBase:
         self.DB["Phones"].append(string[4])
     def ReadInput(self):
         userInput = input().split()
+        if len(userInput[4]) != 10:
+            return "wrongvalue"
+        try:
+            phone = int(userInput[4])
+        except ValueError:
+            print("incorrect number")
+            return "wrongvalue"
         userInput[3] = self.ConvertDate(userInput[3])
         return userInput
     def ShowPerson(self, n):
